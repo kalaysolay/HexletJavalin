@@ -1,28 +1,25 @@
 package org.example.hexlet;
 
 import io.javalin.Javalin;
-import io.javalin.http.NotFoundResponse;
+import io.javalin.rendering.template.JavalinJte;
+import static io.javalin.rendering.template.TemplateUtil.model;
+import org.example.hexlet.model.Course;
+import org.example.hexlet.dto.courses.CoursePage;
 
 public class HelloWorld {
     public static void main(String[] args) {
-        // Создаем приложение
         var app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
+            config.fileRenderer(new JavalinJte());
         });
-        // Описываем, что загрузится по адресу /
-        app.get("/", ctx -> ctx.result("Hello World"));
-        app.get("/companies/{id}", ctx -> {
-            var id = ctx.pathParamAsClass("id", Integer.class);
-            var company = COMPANIES.stream()
-                    .filter(c -> c.get("id").equals(id))
-                    .findFirst()
-                    .orElseThrow(() -> new NotFoundResponse("Company not found"));
 
-            ctx.json(company);
-        app.start(7070); // Стартуем веб-сервер
-    }
-    public static String get(){
-        var v = "Ok";
-        return v;
+        app.get("/courses", ctx -> {
+            var courses = new Course("1","2") /* Список курсов извлекается из базы данных */;
+                    var header = "Курсы по программированию";
+            var page = new CoursePage(courses, header);
+            ctx.render("courses/index.jte", model("page", page));
+        });
+
+        app.start(7070);
     }
 }
