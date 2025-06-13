@@ -19,6 +19,9 @@
             <li >
                 <a href="/aboutme">Users</a>
             </li>
+            <li >
+                <a href="/users/build">Register</a>
+            </li>
         </ul>
     </div>
 </nav>
