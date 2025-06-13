@@ -49,6 +49,19 @@ public class HelloWorld {
             ctx.render("courses/index.jte", model("page", page));
         });
 
+
+        app.get("/", ctx -> {
+            ctx.render("index.jte");
+        });
+
+        app.get("/about", ctx -> {
+            ctx.render("about.jte");
+        });
+        app.exception(Exception.class, (e, ctx) -> {
+            e.printStackTrace();
+            ctx.status(500).result("Internal Error: " + e.getMessage());
+        });
+
         app.start(7070);
     }
 }

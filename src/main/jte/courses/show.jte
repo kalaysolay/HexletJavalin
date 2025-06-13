@@ -1,4 +1,4 @@
-@import org.example.hexlet.dto.courses.CoursePage
+@import org.example.hexlet
 @param CoursePage page
 
 <!-- Для наглядности мы не стали включать сюда основную структуру HTML -->
